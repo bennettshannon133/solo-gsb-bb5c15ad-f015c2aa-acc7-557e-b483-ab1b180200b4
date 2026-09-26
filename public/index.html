@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>多色滚筒套准校核</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>多色滚筒套准校核</h1>
+    <div class="toolbar">
+      <label>
+        方案：
+        <select id="planSelect" title="选择已保存的方案"></select>
+      </label>
+      <button id="newBtn" type="button">新建方案</button>
+      <button id="saveBtn" type="button" class="primary">保存方案</button>
+      <button id="deleteBtn" type="button" class="danger">删除方案</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel editor-panel">
+      <h2>方案参数</h2>
+      <label class="field">
+        方案名称
+        <input id="planName" type="text" maxlength="50" placeholder="例如：花型 A — 四色套印" />
+      </label>
+
+      <div class="roller-header">
+        <span>色筒（2～8 个）</span>
+        <span class="roller-actions">
+          <button id="addRollerBtn" type="button">＋ 添加色筒</button>
+          <button id="removeRollerBtn" type="button">－ 移除末筒</button>
+        </span>
+      </div>
+      <table class="roller-table">
+        <thead>
+          <tr>
+            <th style="width:3rem">#</th>
+            <th>重复周长 (mm，正整数)</th>
+            <th>标记偏移 (mm，0 ≤ 偏移 &lt; 周长)</th>
+            <th style="width:3rem"></th>
+          </tr>
+        </thead>
+        <tbody id="rollerRows"></tbody>
+      </table>
+
+      <label class="field">
+        布长 (mm，非负整数)
+        <input id="clothLength" type="text" inputmode="numeric" pattern="[0-9]*" value="100000" />
+      </label>
+      <p class="hint">
+        标记位置条件：从布头 0 mm 起，色筒标记出现在满足 <code>位置 ≡ 偏移 (mod 周长)</code> 的所有位置。
+        数值支持任意位数，可远超 JavaScript 安全整数（2<sup>53</sup>−1）范围。
+      </p>
+    </section>
+
+    <section class="panel result-panel">
+      <h2>校核结果</h2>
+      <div id="errorBox" class="error-box" hidden></div>
+      <div id="resultBox">
+        <p class="placeholder">输入参数后自动计算…</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

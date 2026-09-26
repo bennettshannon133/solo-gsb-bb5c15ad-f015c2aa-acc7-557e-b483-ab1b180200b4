@@ -1,0 +1,28 @@
+# 单条命令启动：docker compose up -d --build
+# 访问地址：http://localhost:3000
+#
+# 必要配置：
+#   PORT       容器内服务端口（默认 3000，一般无需修改）
+#   HOST       监听地址（默认 0.0.0.0）
+#   DATA_DIR   方案 JSON 存储目录（容器内默认 /data）
+services:
+  roller-registration:
+    build: .
+    image: roller-registration:latest
+    container_name: roller-registration
+    restart: unless-stopped
+    ports:
+      # 宿主机端口:容器端口 —— 如宿主机 3000 被占用，改左侧即可，例如 "8080:3000"
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      HOST: "0.0.0.0"
+      DATA_DIR: /data
+    volumes:
+      # 方案数据持久化到命名卷（容器删除/重建后方案仍在）
+      - roller-data:/data
+      # 如希望直接在宿主机目录查看/备份 plans.json，可改用绑定挂载，例如：
+      # - ./data:/data
+
+volumes:
+  roller-data:

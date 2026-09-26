@@ -1,0 +1,17 @@
+{
+  "name": "roller-registration",
+  "version": "1.0.0",
+  "description": "印花车间多色滚筒套准点校核 Web 应用",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node test/crt.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
